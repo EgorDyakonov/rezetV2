@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let arr = [1, 3, 5, 4, 5, 7];
+        function checkNum(arr) {
+            let arrResult = [];
+            for (let i = 0; i < arr.length - 2; i++) {
+                let a = arr[i];
+                let b = arr[i + 1];
+                let c = arr[i + 2];
+                (a > b && b < c) || (a < b && b > c) ? arrResult.push(1) : arrResult.push(0);
+            }
+            console.log(arrResult);
+        }
+        // checkNum(arr);
+
+        ////////////////////////////////////////////////////////////////////////////
+
+        const matt = [
+            [1, 2, 3, 2, 7],
+            [4, 5, 6, 8, 1],
+            [7, 8, 9, 4, 5]
+        ];
+
+        function checkMatt(matt) {
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            let result = [];
+            let resultFinal = [];
+
+            let str1 = matt[0];
+            let str2 = matt[1];
+            let str3 = matt[2];
+
+            for (let i = 0; i < str1.length; i++) {
+                result.push(str1[i], str2[i], str3[i]);
+                if (result.length === 9) {
+                    let compareNum = [...result].sort(function (a, b) { return a - b });
+                    result.splice(0, 3);
+                    JSON.stringify(compareNum) === JSON.stringify(numbers) ? resultFinal.push(true) : resultFinal.push(false);
+                }
+            }
+            console.log(resultFinal);
+        }
+        checkMatt(matt);
+
+        ////////////////////////////////////////////////////////////////////////////
+
+        const word = [
+            ["Hello", "world"],
+            ["Brad", "came", "to", "dinner", "with", "us"],
+            ["He", "loves", "tacos"]
+        ];
+        function words(word) {
+            let finalResult = [];
+            word.forEach(el => {
+                let chars = el.join(' '); //служит для проверки на количество символов
+                if (chars.length < 16) { //проверка, если строка меньшее 16 символов добавить её в конечный массив
+                    let left = `${chars}                `;
+                    left = `*${left.slice(0, 16)}*`; //форматирование
+                    finalResult.push(left);
+                } else {
+                    callMe(chars); //если строка больше 16 символов, вызывает функцию для форматирования строки
+                }
+            });
+            function callMe(chars) {
+                let arrStr = chars.split(' '); //разделяет строку которая привысила 16 символов на массив
+                let line = ''; //переменная для работы со строкой
+                for (let i = 0; i < arrStr.length; i++) {
+                    line += arrStr[i] + ' ';
+                    if (line.length < 16 && (arrStr[i] == arrStr[arrStr.length - 1])) {
+                        line = line.split(' ').join(' ');
+                        line = line.substring(0, line.length - 1);
+                        let right = `                ${line}`; //форматирование
+                        right = `*${right.slice(-16)}*`; //форматирование
+                        finalResult.push(right);
+                        line = '';
+                    } else if (line.length >= 16) {
+                        let temp = line.split(' ');
+                        temp = temp.slice(0, -1); //убирает лишний пробел
+                        line = temp.pop() + ' '; //забирает последний элемент который лишний методом pop
+                        temp = temp.join(' ');
+                        let right = `                ${temp}`; //форматирование
+                        right = `*${right.slice(-16)}*`; //форматирование
+                        finalResult.push(right);
+                        temp = [];
+                    } else if (line.length < 16) {
+                        continue;
+                    }
+                }
+            }
+            finalResult.push("******************"); // добавляет в начало звездочки
+            finalResult.unshift("******************"); // добавляет в конец звездочки
+            finalResult.forEach(el => { //вывод результата
+                console.log(el);
+            });
+        }
+        // words(word);
+
+    </script>
+</body>
+
+</html>
