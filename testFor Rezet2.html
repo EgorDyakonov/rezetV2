@@ -51,7 +51,7 @@
             }
             console.log(resultFinal);
         }
-        checkMatt(matt);
+        // checkMatt(matt);
 
         ////////////////////////////////////////////////////////////////////////////
 
@@ -65,9 +65,7 @@
             word.forEach(el => {
                 let chars = el.join(' '); //служит для проверки на количество символов
                 if (chars.length < 16) { //проверка, если строка меньшее 16 символов добавить её в конечный массив
-                    let left = `${chars}                `;
-                    left = `*${left.slice(0, 16)}*`; //форматирование
-                    finalResult.push(left);
+                    finalResult.push(`*${chars.padEnd(16)}*`); //форматирование
                 } else {
                     callMe(chars); //если строка больше 16 символов, вызывает функцию для форматирования строки
                 }
@@ -80,31 +78,28 @@
                     if (line.length < 16 && (arrStr[i] == arrStr[arrStr.length - 1])) {
                         line = line.split(' ').join(' ');
                         line = line.substring(0, line.length - 1);
-                        let right = `                ${line}`; //форматирование
-                        right = `*${right.slice(-16)}*`; //форматирование
-                        finalResult.push(right);
+                        finalResult.push(`*${line.padStart(16)}*`);
                         line = '';
                     } else if (line.length >= 16) {
                         let temp = line.split(' ');
                         temp = temp.slice(0, -1); //убирает лишний пробел
                         line = temp.pop() + ' '; //забирает последний элемент который лишний методом pop
                         temp = temp.join(' ');
-                        let right = `                ${temp}`; //форматирование
-                        right = `*${right.slice(-16)}*`; //форматирование
-                        finalResult.push(right);
+                        finalResult.push(`*${temp.padStart(16)}*`);//форматирование и добавление в массив
                         temp = [];
                     } else if (line.length < 16) {
                         continue;
                     }
                 }
             }
-            finalResult.push("******************"); // добавляет в начало звездочки
-            finalResult.unshift("******************"); // добавляет в конец звездочки
+            finalResult.push(''.padStart(18, '*')); // добавляет в конец звездочки
+            finalResult.unshift(''.padStart(18, '*')); // добавляет в начало звездочки
             finalResult.forEach(el => { //вывод результата
                 console.log(el);
             });
         }
-        // words(word);
+        words(word);
+
 
     </script>
 </body>
